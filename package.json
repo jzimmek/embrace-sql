@@ -1,0 +1,42 @@
+{
+  "name": "embrace-sql",
+  "version": "1.0.0",
+  "description": "Embrace SQL",
+  "main": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "clean": "rm -rf lib",
+    "test": "node_modules/.bin/jest",
+    "build": "node_modules/.bin/babel --ignore __tests__ src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jzimmek/embrace-sql.git"
+  },
+  "keywords": [
+    "sql",
+    "compose",
+    "composition",
+    "db",
+    "database",
+    "pg",
+    "postgresql"
+  ],
+  "author": "Jan Zimmek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jzimmek/embrace-sql/issues"
+  },
+  "homepage": "https://github.com/jzimmek/embrace-sql#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "jest": "^20.0.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
