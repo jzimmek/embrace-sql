@@ -1,13 +1,14 @@
+import snakeCase from "lodash/fp/snakeCase"
+
 import sql from "./sql"
 import definedColumns from "./definedColumns"
 import assignColumn from "./assignColumn"
 
 export default (tableName, columns, suffix) => {
-
   if(suffix && suffix[0] !== "__sql")   throw new Error("expect suffix to be a sql``")
 
   if(!suffix)
-    suffix = sql``
+    suffix = sql`returning *`
 
   columns = definedColumns(columns)
 
@@ -16,10 +17,20 @@ export default (tableName, columns, suffix) => {
 
   return [
     "__sql",
-    "update ",
+    "insert into ",
     tableName,
-    " set ",
-    columns.map(assignColumn),
+    " (",
+    columns.map(e => snakeCase(e[0])).join(", "),
+    ") values (",
+    ...columns.reduce((memo, e, idx, arr) => {
+      memo = [...memo, {__param: e[1]}]
+
+      if(idx < arr.length - 1)
+        memo = [...memo, ", "]
+
+      return memo
+    }, []),
+    ")",
     ...(suffix.length === 1 ? "" : " "),
     suffix
   ]
