@@ -4,7 +4,7 @@ export default function(prefix,columns,suffix){
     throw new Error("expect prefix to be a sql``")
 
   if(suffix && suffix[0] !== "__sql")
-    throw new Error("expect prefix to be a sql``")
+    throw new Error("expect suffix to be a sql``")
 
   if(!suffix)
     suffix = sql``
