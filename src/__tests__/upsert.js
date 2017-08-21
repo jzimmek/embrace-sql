@@ -12,6 +12,9 @@ it("upsert", () => {
   expect(build(upsert("t1", "x", {a: 1})))
     .toEqual({sql: "insert into t1 (a) values ($1) on conflict (x) do update set a = $2", params: [1, 1]})
 
+  expect(build(upsert("t1", "x", {a: sql`concat(${1},${2})`})))
+    .toEqual({sql: "insert into t1 (a) values (concat($1,$2)) on conflict (x) do update set a = concat($3,$4)", params: [1, 2, 1, 2]})
+
   expect(build(upsert("t1", "x", {aB: 1})))
     .toEqual({sql: "insert into t1 (a_b) values ($1) on conflict (x) do update set a_b = $2", params: [1, 1]})
 

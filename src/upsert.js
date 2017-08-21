@@ -1,6 +1,7 @@
 import snakeCase from "lodash/fp/snakeCase"
 
 import sql from "./sql"
+import isSql from "./isSql"
 import definedColumns from "./definedColumns"
 import assignColumn from "./assignColumn"
 
@@ -24,7 +25,7 @@ export default (tableName, conflict, columns, suffix) => {
     columns.map(e => snakeCase(e[0])).join(", "),
     ") values (",
     ...columns.reduce((memo, e, idx, arr) => {
-      memo = [...memo, {__param: e[1]}]
+      memo = [...memo, isSql(e[1]) ? e[1] : {__param: e[1]}]
 
       if(idx < arr.length - 1)
         memo = [...memo, ", "]
