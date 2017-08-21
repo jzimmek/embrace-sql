@@ -3,6 +3,7 @@ import snakeCase from "lodash/fp/snakeCase"
 import sql from "./sql"
 import definedColumns from "./definedColumns"
 import assignColumn from "./assignColumn"
+import isSql from "./isSql"
 
 export default (tableName, columns, suffix) => {
   if(suffix && suffix[0] !== "__sql")   throw new Error("expect suffix to be a sql``")
@@ -23,7 +24,7 @@ export default (tableName, columns, suffix) => {
     columns.map(e => snakeCase(e[0])).join(", "),
     ") values (",
     ...columns.reduce((memo, e, idx, arr) => {
-      memo = [...memo, {__param: e[1]}]
+      memo = [...memo, isSql(e[1]) ? e[1] : {__param: e[1]}]
 
       if(idx < arr.length - 1)
         memo = [...memo, ", "]

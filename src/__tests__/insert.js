@@ -12,6 +12,9 @@ it("insert", () => {
   expect(build(insert("t1", {a: 1})))
     .toEqual({sql: "insert into t1 (a) values ($1) returning *", params: [1]})
 
+  expect(build(insert("t1", {a: sql`[${1},${2}]`})))
+    .toEqual({sql: "insert into t1 (a) values ([$1,$2]) returning *", params: [1, 2]})
+
   expect(build(insert("t1", {aB: 1})))
     .toEqual({sql: "insert into t1 (a_b) values ($1) returning *", params: [1]})
 

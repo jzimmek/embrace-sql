@@ -9,6 +9,9 @@ it("update", () => {
   expect(build(update("t1", {a: 1})))
     .toEqual({sql: "update t1 set a = $1", params: [1]})
 
+  expect(build(update("t1", {a: sql`[${1},${2}]`})))
+    .toEqual({sql: "update t1 set a = [$1,$2]", params: [1, 2]})
+
   expect(() => update("t1", {}, "string"))
     .toThrow("expect suffix to be a sql``")
 
