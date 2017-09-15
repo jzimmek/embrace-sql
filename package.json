@@ -1,6 +1,6 @@
 {
   "name": "embrace-sql",
-  "version": "1.0.8",
+  "version": "2.0.1",
   "description": "Embrace SQL",
   "main": "./lib/index.js",
   "files": [
@@ -37,6 +37,7 @@
     "jest": "^20.0.4"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "camelize": "^1.0.0"
   }
 }
